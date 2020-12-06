@@ -15,7 +15,7 @@ jobs:
         env:
           CONTAINER_IMAGE: docker.pkg.github.com/backpaper0/github-packages-buildpacks-example/helloworld-buildpacks:latest
         run: |
-          docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/workspace -w /workspace \
+          docker run -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/workspace -w /workspace \
             buildpacksio/pack build $CONTAINER_IMAGE --builder paketobuildpacks/builder:base
           echo ${{ secrets.GITHUB_TOKEN }} | docker login https://docker.pkg.github.com -u backpaper0 --password-stdin
           docker push $CONTAINER_IMAGE
